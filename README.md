@@ -91,7 +91,7 @@ Para executar o sistema de cadastro de livros em sua máquina local:
 
 Para dúvidas ou sugestões, sinta-se à vontade para entrar em contato:
 
-* **Seu Nome:** [Gustavo Ventura]
+* **Nome:** [Gustavo Ventura]
 * **GitHub:** [https://github.com/Gtvnv]
 * **LinkedIn:** [https://www.linkedin.com/in/gtvnv]
 * **Email:** [gutsman1235@gmail.com]
