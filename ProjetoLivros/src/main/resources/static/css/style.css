@@ -1,0 +1,73 @@
+
+/* Estilo Específico para o Botão do Google */
+.btn-google {
+    background-color: #db4437; /* Vermelho oficial do Google */
+    color: white;
+    font-weight: bold;
+    margin-top: 10px; /* Um espacinho para separar do botão de login normal */
+    display: flex; /* Ajuda a alinhar ícone e texto se você colocar um ícone depois */
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-google:hover {
+    background-color: #c53929; /* Vermelho mais escuro ao passar o mouse */
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #888;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+/* Botão Vermelho do Google */
+.btn-google {
+    background-color: #db4437 !important; /* !important garante que o vermelho vença */
+    color: white;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Espaço entre ícone e texto */
+}
+
+.btn-google:hover {
+    background-color: #c53929 !important;
+}
+
+/* Divisor "OU" para separar Login normal do Google */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #888;
+    font-size: 0.9em;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider:not(:empty)::before { margin-right: .5em; }
+.divider:not(:empty)::after { margin-left: .5em; }

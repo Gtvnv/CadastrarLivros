@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livro</title>
+    <style>
+        /* --- RESET E ESTRUTURA GERAL --- */
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f2f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- LOGO --- */
+        .header-logo {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .header-logo img {
+            width: 150px;
+            transition: transform 0.3s ease;
+        }
+        .header-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- CARD PRINCIPAL --- */
+        .container {
+            max-width: 600px;
+            width: 90%;
+            margin: 0 auto 50px auto; /* Espaço embaixo */
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #b3e0ff;
+            flex: 1; /* Para o footer ir pro fundo se a tela for grande */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d47a1;
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- FORMULÁRIO --- */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px; /* Espaçamento entre campos */
+        }
+
+        label {
+            font-weight: 600;
+            color: #455a64;
+            margin-bottom: 6px;
+            display: block;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 1px solid #cfd8dc;
+            border-radius: 8px;
+            background-color: #fcfcfc;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        input:focus, select:focus {
+            border-color: #2196f3;
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.15);
+        }
+
+        /* Botão Salvar */
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            background-color: #00796b; /* Verde Teal */
+            color: white;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+        }
+
+        button[type="submit"]:hover {
+            background-color: #004d40;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+        }
+
+        /* --- ALERTAS DE ERRO --- */
+        .alert-error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(198, 40, 40, 0.1);
+        }
+
+        /* --- BOTÕES DE NAVEGAÇÃO --- */
+        .navigation-buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 25px;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            background-color: #78909c;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            background-color: #546e7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+
+        /* --- FOOTER PROFISSIONAL --- */
+        .footer {
+            margin-top: auto;
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 40px 20px;
+            border-top: 5px solid #42a5f5;
+            font-size: 0.95em;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-info, .footer-dev {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-dev {
+            text-align: right;
+        }
+
+        .footer h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+            color: #e3f2fd;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dev-name {
+            font-size: 1.3em;
+            font-weight: 800;
+            color: #ffffff;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .tech-stack {
+            font-size: 0.85em;
+            color: #bbdefb;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .social-links {
+            display: inline-flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .social-btn:hover {
+            background-color: white;
+            color: #0d47a1;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .social-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-dev { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-logo">
+    <img th:src="@{/img/logo.png}" alt="Logo da Livraria">
+</div>
+
+<div class="container">
+    <h1>📚 Novo Livro</h1>
+
+    <form th:action="@{/cadastro-livro}" th:object="${livroDto}" method="post">
+
+        <div>
+            <label for="titulo">Título do Livro</label>
+            <input type="text" id="titulo" th:field="*{titulo}" placeholder="Ex: Dom Casmurro" required>
+        </div>
+
+        <div>
+            <label for="idAutor">Autor</label>
+            <select id="idAutor" th:field="*{idAutor}" required>
+                <option value="" selected>Selecione um autor...</option>
+                <option th:each="autor : ${listaAutores}"
+                        th:value="${autor.id}"
+                        th:text="${autor.nome}">
+                    Nome do Autor
+                </option>
+            </select>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <div style="flex: 1;">
+                <label for="dataPublicacao">Data de Publicação</label>
+                <input type="date" id="dataPublicacao" th:field="*{dataPublicacao}" required>
+            </div>
+
+            <div style="flex: 1;">
+                <label for="genero">Gênero</label>
+                <select id="genero" th:field="*{genero}" required>
+                    <option value="" selected>Selecione...</option>
+                    <option th:each="g : ${generos}"
+                            th:value="${g}"
+                            th:text="${g}">Opção</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <div style="flex: 1;">
+                <label for="isbn">ISBN</label>
+                <input type="text" id="isbn" th:field="*{isbn}" placeholder="978-..." required>
+            </div>
+
+            <div style="flex: 1;">
+                <label for="preco">Preço (R$)</label>
+                <input type="number" id="preco" th:field="*{preco}" step="0.01" min="0" placeholder="0.00">
+            </div>
+        </div>
+
+        <button type="submit">Salvar Livro</button>
+    </form>
+
+    <div th:if="${erro}" class="alert-error">
+        ⚠️ <span th:text="${erro}">Mensagem de erro</span>
+    </div>
+    <div th:if="${param.erro}" class="alert-error">
+        ⚠️ <span th:text="${param.erro}">Erro via URL</span>
+    </div>
+
+    <div class="navigation-buttons">
+        <a href="/livros" class="btn-secondary">📋 Ver Lista</a>
+        <a href="/" class="btn-secondary">🏠 Início</a>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-info">
+            <h3>Biblioteca Unicesumar</h3>
+            <p>&copy; 2025 Fábrica de Software</p>
+        </div>
+
+        <div class="footer-dev">
+            <span class="dev-name">Gustavo Ventura</span>
+            <span class="tech-stack">Spring Boot & Thymeleaf</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo! Esse é meu Projeto de Livros</title>
+    <style>
+        /* CSS MANTIDO */
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #e0f2f7; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .header-image { position: absolute; top: 20px; right: 20px; width: 80px; height: 80px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); background-color: white; }
+        .container { max-width: 500px; width: 90%; margin: 40px auto; background-color: #ffffff; padding: 50px 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); text-align: center; border: 1px solid #b3e0ff; flex: 1; display: flex; flex-direction: column; justify-content: center; align-self: center; }
+        h1 { color: #0d47a1; margin-bottom: 40px; font-size: 2.2em; font-weight: 700; line-height: 1.2; }
+        .btn-menu { display: block; padding: 18px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1em; transition: all 0.3s ease; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden; }
+        .btn-menu:last-child { margin-bottom: 0; }
+        .btn-menu:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); }
+        .btn-primary { background-color: #00796b; color: white; }
+        .btn-primary:hover { background-color: #004d40; }
+        .btn-secondary { background-color: #1976d2; color: white; }
+        .btn-secondary:hover { background-color: #0d47a1; }
+        .footer { margin-top: auto; padding: 20px; background-color: #1565c0; color: white; text-align: center; font-size: 0.85em; width: 100%; border-top: 4px solid #42a5f5; }
+        .footer p { margin: 5px 0; opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+<img th:src="@{/img/logo.png}" alt="Logo da Livraria" class="header-image">
+
+<div class="container">
+    <h1>Sistema de Gestão de Biblioteca 📚</h1>
+
+    <a href="/livros" class="btn-menu btn-secondary">
+        📋 Ver Lista de Livros
+    </a>
+
+    <a href="/cadastro-autor" class="btn-menu btn-primary">
+        ✍️ Cadastrar Novo Autor
+    </a>
+
+    <a href="/cadastro-livro" class="btn-menu btn-primary">
+        ➕ Cadastrar Novo Livro
+    </a>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-info">
+            <h3>Biblioteca Unicesumar</h3>
+            <p>&copy; 2025 Fábrica de Software</p>
+        </div>
+
+        <div class="footer-dev">
+            <span class="dev-name">Gustavo Ventura</span>
+            <span class="tech-stack">Spring Boot & Thymeleaf</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

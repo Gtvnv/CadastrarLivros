@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Autor</title>
+    <style>
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #e0f2f7; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 600px; width: 90%; margin: 40px auto; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); border: 1px solid #b3e0ff; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        h1 { text-align: center; color: #0d47a1; margin-bottom: 30px; font-size: 2em; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        label { font-weight: 600; color: #455a64; margin-bottom: 5px; display: block; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px 15px; font-size: 16px; border: 1px solid #cfd8dc; border-radius: 8px; background-color: #fcfcfc; transition: all 0.3s ease; }
+        input:focus { border-color: #2196f3; background-color: #fff; outline: none; box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15); }
+        input[type="submit"] { width: 100%; padding: 14px; font-size: 18px; font-weight: bold; border: none; border-radius: 50px; background-color: #00796b; color: white; cursor: pointer; margin-top: 20px; transition: all 0.3s ease; }
+        input[type="submit"]:hover { background-color: #004d40; transform: translateY(-2px); }
+        .alert-error { background-color: #ffebee; color: #c62828; border: 1px solid #ef9a9a; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; margin-top: 15px; }
+        .navigation-buttons { margin-top: 30px; display: flex; justify-content: center; gap: 15px; border-top: 1px solid #eee; padding-top: 20px; }
+        .btn-secondary { display: inline-block; padding: 10px 20px; border-radius: 50px; text-decoration: none; color: white; font-weight: 600; background-color: #78909c; transition: all 0.3s ease; }
+        .btn-secondary:hover { background-color: #546e7a; transform: translateY(-2px); }
+        .footer { margin-top: auto; padding: 20px; background-color: #1565c0; color: white; text-align: center; border-top: 4px solid #42a5f5; }
+        .footer p { margin: 5px 0; opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+<div style="text-align: center; margin-top: 20px;">
+    <img th:src="@{/img/logo.png}" alt="Logo da Livraria" width="150">
+</div>
+
+<div class="container">
+    <h1>👤 Novo Autor</h1>
+
+    <form th:action="@{/cadastro-autor}" th:object="${autorDto}" method="post">
+        <div>
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" th:field="*{nome}" placeholder="Ex: Machado de Assis" required>
+        </div>
+
+        <div>
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input type="date" id="dataNascimento" th:field="*{dataNascimento}" required>
+        </div>
+
+        <div>
+            <label for="nacionalidade">Nacionalidade</label>
+            <input type="text" id="nacionalidade" th:field="*{nacionalidade}" placeholder="Ex: Brasileira" required>
+        </div>
+
+        <input type="submit" value="Salvar Autor">
+    </form>
+
+    <div th:if="${erro}" class="alert-error">
+        ⚠️ <span th:text="${erro}">Mensagem de Erro</span>
+    </div>
+
+    <div th:if="${param.erro}" class="alert-error">
+        ⚠️ <span th:text="${param.erro}">Erro via parametro</span>
+    </div>
+
+    <div class="navigation-buttons">
+        <a href="/cadastro-livro" class="btn-secondary">🔙 Voltar para Livro</a>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-info">
+            <h3>Biblioteca Unicesumar</h3>
+            <p>&copy; 2025 Fábrica de Software</p>
+        </div>
+
+        <div class="footer-dev">
+            <span class="dev-name">Gustavo Ventura</span>
+            <span class="tech-stack">Spring Boot & Thymeleaf</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

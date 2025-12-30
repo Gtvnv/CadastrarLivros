@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Livros</title>
+    <style>
+        /* MANTIVE SEU CSS ORIGINAL */
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #e0f2f7; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1000px; width: 90%; margin: 40px auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); border: 1px solid #b3e0ff; flex: 1; }
+        h1 { text-align: center; color: #0d47a1; margin-bottom: 30px; font-size: 2.2em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        th { background-color: #1976d2; color: #ffffff; font-weight: 600; text-transform: uppercase; font-size: 0.9em; }
+        tr:nth-child(even) { background-color: #f5fafd; }
+        tr:hover { background-color: #e3f2fd; }
+        .navigation-buttons { margin-top: 40px; display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .navigation-buttons a, .navigation-buttons span { display: inline-block; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: bold; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; min-width: 120px; border: none; cursor: pointer; }
+        .btn-primary { background-color: #00796b; color: white; }
+        .btn-primary:hover { background-color: #004d40; transform: translateY(-2px); }
+        .btn-secondary { background-color: #1976d2; color: white; }
+        a.btn-secondary:hover { background-color: #0d47a1; transform: translateY(-2px); }
+        span.btn-secondary { background-color: #cfd8dc; color: #90a4ae; box-shadow: none; cursor: not-allowed; opacity: 0.8; }
+
+        /* Estilos dos Links de Ação */
+        .action-container { display: flex; gap: 10px; justify-content: center; }
+        .action-btn {
+            border: none; background: none; cursor: pointer;
+            font-weight: bold; padding: 5px 10px; border-radius: 4px;
+            text-decoration: none; font-size: 0.9em; transition: background 0.2s;
+        }
+        .btn-delete { color: #d32f2f; }
+        .btn-delete:hover { background-color: #ffebee; }
+        .btn-edit { color: #1976d2; }
+        .btn-edit:hover { background-color: #e3f2fd; }
+
+        .footer { margin-top: auto; padding: 15px 20px; background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%); color: white; border-top: 4px solid #42a5f5; font-size: 0.9em; }
+        .footer-content { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer h3 { margin: 0; font-size: 1.1em; color: #e3f2fd; }
+        .footer-dev { text-align: right; }
+        .dev-name { font-weight: bold; display: block; }
+        .tech-stack { font-size: 0.85em; color: #bbdefb; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Livros Cadastrados</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Publicação</th>
+            <th>ISBN</th>
+            <th style="text-align: center;">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livro : ${livros}">
+            <td th:text="${livro.titulo}">Título</td>
+            <td th:text="${livro.autor?.nome}">Autor</td>
+            <td th:text="${livro.dataPublicacao}">Data</td>
+            <td th:text="${livro.isbn}">ISBN</td>
+            <td class="action-container">
+
+                <a th:href="@{/cadastro-livro/editar/{id}(id=${livro.id})}" class="action-btn btn-edit">
+                    ✏️ Editar
+                </a>
+
+                <form th:action="@{/cadastro-livro/deletar}" method="post"
+                      onsubmit="return confirm('Tem certeza que deseja excluir este livro?');">
+                    <input type="hidden" name="id" th:value="${livro.id}">
+                    <button type="submit" class="action-btn btn-delete">🗑️ Excluir</button>
+                </form>
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(livros)}">
+            <td colspan="5" style="text-align: center; padding: 40px; color: #78909c;">
+                <h3 style="margin-bottom: 10px;">Nenhum livro encontrado 😢</h3>
+                <p>Clique no botão abaixo para adicionar o primeiro livro à sua biblioteca.</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <img th:src="@{/img/logo.png}" alt="Logo da Livraria" width="150">
+    </div>
+
+    <div class="navigation-buttons">
+        <a th:if="${temAnterior}" th:href="@{/livros(pagina=${paginaAtual - 1})}" class="btn-secondary">⬅ Anterior</a>
+        <span th:unless="${temAnterior}" class="btn-secondary">⬅ Anterior</span>
+
+        <a href="/cadastro-livro" class="btn-primary">➕ Cadastrar Novo</a>
+
+        <a th:if="${temProxima}" th:href="@{/livros(pagina=${paginaAtual + 1})}" class="btn-secondary">Próximo ➡</a>
+        <span th:unless="${temProxima}" class="btn-secondary">Próximo ➡</span>
+    </div>
+
+    <p style="text-align: center; margin-top: 15px; color: #546e7a; font-size: 0.9em;">
+        Página <strong th:text="${paginaAtual + 1}">1</strong> de <strong th:text="${totalPaginas == 0 ? 1 : totalPaginas}">1</strong>
+    </p>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-info">
+            <h3>Biblioteca Unicesumar</h3>
+            <p>&copy; 2025 Fábrica de Software</p>
+        </div>
+
+        <div class="footer-dev">
+            <span class="dev-name">Gustavo Ventura</span>
+            <span class="tech-stack">Spring Boot & Thymeleaf</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
