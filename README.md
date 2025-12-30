@@ -133,4 +133,21 @@ mvn spring-boot:run
 [ ] Deploy na nuvem (Render/Heroku/AWS).
 ```
 
-<sub><b>Gustavo Ventura Nery Vianna</b></sub> </a> </td> </tr> </table>
+## 🤝 Autor
+
+<div align="center">
+  <a href="https://github.com/Gtvnv">
+    <img src="https://avatars.githubusercontent.com/Gtvnv" width="100px" alt="Foto do Gustavo Ventura"/>
+  </a>
+  <br>
+  <sub><b>Gustavo Ventura Nery Vianna</b></sub>
+  <br>
+  <br>
+
+  <a href="https://www.linkedin.com/in/gtvnv" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+  </a>
+  <a href="mailto:gutsman1235@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white">
+  </a>
+</div>
