@@ -1,97 +1,142 @@
-# 📚 Sistema de Cadastro de Livros
+# 📚 Sistema de Gestão de Biblioteca
 
-## 📝 Descrição do Projeto
+![Status do Projeto](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.0-green)
+![Thymeleaf](https://img.shields.io/badge/Front--End-Thymeleaf-blue)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Este projeto é um sistema simples de cadastro e gerenciamento de informações sobre livros. Desenvolvido em Java, ele serve como uma base para aprender e demonstrar conceitos de Programação Orientada a Objetos (POO), manipulação de dados e interações básicas com o usuário.
+> Um sistema completo para gerenciamento de acervo bibliográfico, com autenticação Google, controle de autores e livros.
 
-O objetivo principal é permitir o registro, consulta e, potencialmente, a atualização e exclusão de dados de livros, simulando um pequeno catálogo.
+---
 
-## ✨ Funcionalidades
+## 📸 Screenshots do Projeto
 
-* **Cadastro de Livros:** Permite adicionar novos livros ao sistema, registrando informações como título, autor, ISBN, ano de publicação, etc.
+Aqui estão algumas telas do sistema em funcionamento:
 
-* **Listagem de Livros:** Exibe todos os livros cadastrados de forma organizada.
+<div align="center">
+  <h3>Tela de Login (Integração Google)</h3>
+  <img src="assets/login.jpeg" alt="Tela de Login" width="600">
+  
+  <h3>Listagem de Livros</h3>
+  <img src="assets/listagem-livros.jpeg" alt="Listagem de Livros" width="600">
 
-* **Busca de Livros:** Capacidade de encontrar livros específicos por critérios (ex: título, autor).
+  <h3>Cadastro de Livro (Com Validação)</h3>
+  <img src="assets/cadastro-livros.jpeg" alt="Cadastro de Livro" width="600">
 
-* **Validação Básica:** Implementa validações simples para os dados de entrada dos livros.
+  <h3>Cadastro de Livro (Com Validação)</h3>
+  <img src="assets/cadastro-autor.jpeg" alt="Cadastro de Autores" width="600">
+
+  <h3>Cadastro de Livro (Com Validação)</h3>
+  <img src="assets/home.jpeg" alt="Página Principal" width="600">
+</div>
+
+---
+
+## 📝 Descrição
+
+Este projeto é um sistema web robusto para cadastro e gerenciamento de uma biblioteca. Desenvolvido em **Java com Spring Boot**, ele demonstra a aplicação prática de conceitos de Engenharia de Software, MVC, Segurança (OAuth2) e Persistência de Dados.
+
+O objetivo é permitir o registro, consulta, atualização e exclusão (CRUD) de dados de livros e autores, oferecendo uma interface amigável construída com **Thymeleaf**.
+
+---
+
+## ✨ Funcionalidades Principais
+
+- [x] **Autenticação Segura:** Login via Google (OAuth2) e controle de sessão.
+- [x] **Gestão de Autores:** Cadastro e vinculação de autores às obras.
+- [x] **Gestão de Livros:** Cadastro completo com Título, ISBN, Data, Preço e Gênero.
+- [x] **Listagem Inteligente:** Tabela com paginação e botões de ação rápida.
+- [x] **Validações de Regra de Negócio:**
+    - Preço obrigatório para livros recentes.
+    - ISBN único.
+    - Gênero não pode ser nulo.
+- [x] **Interface Responsiva:** Design limpo e adaptável para dispositivos móveis.
+
+---
 
 ## 🚀 Tecnologias Utilizadas
 
-* **Linguagem:** Java
+O projeto foi construído utilizando as seguintes tecnologias:
 
-* **Estrutura:** Programação Orientada a Objetos (POO)
+* **Back-end:**
+    * ☕ Java 21
+    * 🍃 Spring Boot 3 (Web, Data JPA, Security, OAuth2 Client, Validation)
+    * 🐘 PostgreSQL (Banco de Dados)
+    * 🐳 Docker (Para containerização do banco)
+* **Front-end:**
+    * 🍃 Thymeleaf
+    * 🎨 CSS3 (Estilização Customizada)
+    * ☕ JavaScript (Lógicas simples de interface)
+* **Ferramentas:**
+    * 🛠️ Maven
+    * 💻 IntelliJ IDEA
+    * 🐙 Git & GitHub
+
+---
 
 ## 📂 Estrutura do Projeto
 
-O projeto segue uma estrutura de pacotes clara para separar as responsabilidades:
+A arquitetura segue o padrão MVC (Model-View-Controller) com camadas de serviço e repositório:
+
 ```
-CadastrarLivros/
-├── src/
-│   └── main/
-│       └── java/
-│           └── application/           # Contém a classe principal de execução
-│               └── Main.java
-│           └── model/                 # Contém as classes de modelo de dados
-│               └── LivroDAO.java      # Representa um livro no sistema   
-└── README.md                          # Este arquivo
+src/main/java/com/github/gtvnv/libraryapi
+├── 📂 config/          # Configurações de Segurança e Web
+├── 📂 controller/      # Controladores (API e View)
+│   ├── 📂 dto/         # Objetos de Transferência de Dados
+│   └── 📂 mappers/     # Conversores DTO <-> Entity
+├── 📂 model/           # Entidades JPA (Livro, Autor, Usuario)
+├── 📂 repository/      # Interfaces de acesso ao Banco de Dados
+├── 📂 service/         # Regras de Negócio
+└── 📂 security/        # Filtros e Lógica de Autenticação Customizada
 ```
-## ⚙️ Como Rodar o Projeto
 
-Para executar o sistema de cadastro de livros em sua máquina local:
+⚙️ Como Rodar o Projeto
+Siga os passos abaixo para executar o sistema em sua máquina:
 
-1.  **Clone o Repositório:**
+Pré-requisitos
+Java JDK 21 instalado.
 
-    ```bash
-    git clone [https://github.com/Gtvnv/CadastrarLivros.git](https://github.com/Gtvnv/CadastrarLivros.git)
-    cd CadastrarLivros
-    ```
+Maven instalado.
 
-2.  **Compile e Execute (Via IDE - Eclipse/IntelliJ IDEA):**
+PostgreSQL rodando (local ou via Docker).
 
-    * Importe o projeto para sua IDE favorita como um projeto Java existente.
+Credenciais do Google Cloud Console (Client ID e Secret) para o OAuth2.
 
-    * Localize a classe `Main.java` (no pacote `application`).
+Passo a Passo
+1 - Clone o Repositório:
+git clone [https://github.com/Gtvnv/CadastrarLivros.git](https://github.com/Gtvnv/CadastrarLivros.git)
+cd CadastrarLivros
 
-    * Execute o método `main` desta classe.
+2- Configure o Banco de Dados: No arquivo src/main/resources/application.yml, ajuste as credenciais:
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/library
+    username: seu_usuario
+    password: sua_senha
 
-3.  **Compile e Execute (Via Linha de Comando):**
+3 - Compile e Execute:
+mvn spring-boot:run
 
-    * Certifique-se de ter o Java Development Kit (JDK) 8 ou superior instalado.
+4 - Acesse: Abra o navegador em: http://localhost:9090
 
-    * Navegue até a pasta `src/main/java` dentro do projeto clonado.
+```
+📈 Melhorias Futuras
+[ ] Implementar upload de imagem para a capa do livro.
 
-    * Compile as classes Java:
+[ ] Criar dashboard com gráficos de livros por gênero.
 
-        ```bash
-        javac application/*.java model/*.java
-        ```
+[ ] Adicionar funcionalidade de empréstimo de livros.
 
-    * Execute a aplicação:
+[ ] Implementar testes automatizados (JUnit/Mockito).
 
-        ```bash
-        java application.Main # Para console applications
-        # ou, se o classpath for complexo:
-        # java -cp . application.Main
-        ```
+[ ] Deploy na nuvem (Render/Heroku/AWS).
+```
 
-## 📈 Melhorias Futuras
+✉️ Autor
+<table align="center"> <tr> <td align="center"> <a href="https://github.com/Gtvnv"> <img src="https://www.google.com/search?q=https://avatars.githubusercontent.com/Gtvnv" width="100px;" alt="Foto do Gustavo"/>
 
-* Implementar uma interface gráfica (GUI) mais robusta (ex: JavaFX).
 
-* Persistência de dados em banco de dados (SQL ou NoSQL) em vez de memória/arquivo simples.
+<sub><b>Gustavo Ventura Nery Vianna</b></sub> </a> </td> </tr> </table>
 
-* Implementar testes unitários para a lógica de negócio.
-
-* Exportar/Importar dados em diferentes formatos (CSV, JSON).
-
-* Criação de usuários com hierarquia (ex: administrador, supervisor, usuário padrão).
-
-## ✉️ Contato
-
-Para dúvidas ou sugestões, sinta-se à vontade para entrar em contato:
-
-* **Nome:** [Gustavo Ventura]
-* **GitHub:** [https://github.com/Gtvnv]
-* **LinkedIn:** [https://www.linkedin.com/in/gtvnv]
-* **Email:** [gutsman1235@gmail.com]
+<div align="center"> <a href="https://www.linkedin.com/in/gtvnv" target="_blank"><img src="https://www.google.com/search?q=https://img.shields.io/badge/-LinkedIn-%25230077B5%3Fstyle%3Dfor-the-badge%26logo%3Dlinkedin%26logoColor%3Dwhite" target="_blank"></a> <a href="mailto:gutsman1235@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a> </div>
