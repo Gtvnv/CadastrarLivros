@@ -22,7 +22,7 @@ Aqui estão algumas telas do sistema em funcionamento:
   <img src="assets/listagem-livros.jpeg" alt="Listagem de Livros" width="600">
 
   <h3>Cadastro de Livro (Com Validação)</h3>
-  <img src="assets/cadastro-livros.jpeg" alt="Cadastro de Livro" width="600">
+  <img src="assets/cadastro-livro.jpeg" alt="Cadastro de Livro" width="600">
 
   <h3>Cadastro de Livro (Com Validação)</h3>
   <img src="assets/cadastro-autor.jpeg" alt="Cadastro de Autores" width="600">
